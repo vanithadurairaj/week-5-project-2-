@@ -1,0 +1,41 @@
+<div class="textarea-container">
+  <textarea id="message" maxlength="200"></textarea>
+  <p id="char-count">0/200 characters</p>
+  <p id="warning-message" style="color: red; display: none;">Character limit exceeded!</p>
+</div>
+<style>
+.textarea-container {
+  width: 300px;
+  margin: 20px;
+}
+
+#message {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#char-count {
+  font-size: 14px;
+  color: #666;
+}
+</style>
+<script>
+const textarea = document.getElementById('message');
+const charCount = document.getElementById('char-count');
+const warningMessage = document.getElementById('warning-message');
+const maxLength = parseInt(textarea.getAttribute('maxlength'));
+
+textarea.addEventListener('input', () => {
+  const currentLength = textarea.value.length;
+  charCount.textContent = `${currentLength}/${maxLength} characters`;
+
+  if (currentLength >= maxLength) {
+    warningMessage.style.display = 'block';
+    textarea.value = textarea.value.substring(0, maxLength);
+  } else {
+    warningMessage.style.display = 'none';
+  }
+});
+</script>
